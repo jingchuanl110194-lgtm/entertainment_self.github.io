@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>祝你考试顺利</title>
+    <title>祝福</title>
     <style>
         * {
             margin: 0;
@@ -16,129 +16,530 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0c0f1d 0%, #1a1040 30%, #2d1b69 60%, #0c0f1d 100%);
             font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
             overflow: hidden;
         }
 
-        .container {
-            position: relative;
-            width: 600px;
-            height: 600px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .main-message {
-            font-size: 3.5rem;
-            color: #fff;
-            text-shadow: 0 3px 20px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 1.5s ease-in-out;
-            z-index: 2;
-            text-align: center;
-            line-height: 1.3;
-        }
-
-        .blessing {
-            position: absolute;
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
-            animation: floatIn 2s ease-in-out both;
-            white-space: nowrap;
-        }
-
-        /* 每个祝福语不同的动画延迟和位置 */
-        .blessing:nth-child(2)  { animation-delay: 0.1s; }
-        .blessing:nth-child(3)  { animation-delay: 0.2s; }
-        .blessing:nth-child(4)  { animation-delay: 0.3s; }
-        .blessing:nth-child(5)  { animation-delay: 0.4s; }
-        .blessing:nth-child(6)  { animation-delay: 0.5s; }
-        .blessing:nth-child(7)  { animation-delay: 0.6s; }
-        .blessing:nth-child(8)  { animation-delay: 0.7s; }
-        .blessing:nth-child(9)  { animation-delay: 0.8s; }
-        .blessing:nth-child(10) { animation-delay: 0.9s; }
-        .blessing:nth-child(11) { animation-delay: 1.0s; }
-        .blessing:nth-child(12) { animation-delay: 1.1s; }
-        .blessing:nth-child(13) { animation-delay: 1.2s; }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px) scale(0.9);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        @keyframes floatIn {
-            0% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(0.5);
-            }
-            100% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1);
-            }
-        }
-
-        /* 粒子星星效果 */
+        /* ========== 星星背景 ========== */
         .stars {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             pointer-events: none;
             z-index: 0;
         }
 
         .star {
             position: absolute;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 50%;
-            animation: twinkle 3s infinite alternate;
+            animation: twinkle var(--dur) infinite alternate;
+            animation-delay: var(--delay);
         }
 
         @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.6); }
+            100% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* ========== 流星 ========== */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+            border-radius: 1px;
+            animation: shoot var(--sdur) linear infinite;
+            animation-delay: var(--sdelay);
+            opacity: 0;
+        }
+
+        @keyframes shoot {
             0% {
-                opacity: 0.3;
-                transform: scale(0.8);
+                opacity: 0;
+                transform: translate(0, 0) rotate(-25deg);
             }
+            5% { opacity: 1; }
+            15% { opacity: 0; }
             100% {
-                opacity: 1;
-                transform: scale(1.2);
+                opacity: 0;
+                transform: translate(-500px, 500px) rotate(-25deg);
             }
+        }
+
+        /* ========== 浮动光点 ========== */
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatOrb var(--fodur) ease-in-out infinite;
+            filter: blur(8px);
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            25% { transform: translate(var(--fox), var(--foy)) scale(1.4); opacity: 0.6; }
+            50% { transform: translate(calc(var(--fox) * 1.6), calc(var(--foy) * -0.4)) scale(0.9); opacity: 0.35; }
+            75% { transform: translate(calc(var(--fox) * -0.3), calc(var(--foy) * 1.2)) scale(1.5); opacity: 0.55; }
+        }
+
+        /* ========== 六角星装饰 ========== */
+        .hex-star {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            animation: spinStar var(--spdur) linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes spinStar {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.3); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* ========== 主容器 ========== */
+        .container {
+            position: relative;
+            width: 750px;
+            min-height: 650px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        /* ========== 主标题 ========== */
+        .main-message {
+            font-size: 3.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #fdd835, #ffb74d, #ff8a65, #ffd54f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            filter: drop-shadow(0 0 30px rgba(255, 183, 77, 0.5));
+            animation: titleGlow 2s ease-in-out infinite alternate;
+            z-index: 2;
+            text-align: center;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 20px rgba(255, 183, 77, 0.4)); }
+            100% { filter: drop-shadow(0 0 45px rgba(255, 183, 77, 0.8)); }
+        }
+
+        /* ========== 副标题 ========== */
+        .subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.55);
+            letter-spacing: 0.25em;
+            margin-bottom: 45px;
+            animation: fadeIn 2s ease-in-out;
+            z-index: 2;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== 按钮网格 ========== */
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            z-index: 2;
+            width: 480px;
+        }
+
+        .blessing-btn {
+            position: relative;
+            padding: 16px 12px;
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            cursor: pointer;
+            letter-spacing: 0.06em;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            overflow: hidden;
+            font-family: inherit;
+            z-index: 1;
+        }
+
+        .blessing-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+
+        .blessing-btn:hover {
+            transform: translateY(-4px) scale(1.04);
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 25px var(--glow);
+        }
+
+        .blessing-btn:hover::before {
+            opacity: 1;
+        }
+
+        .blessing-btn:active {
+            transform: translateY(-1px) scale(1.01);
+            transition: all 0.1s;
+        }
+
+        .blessing-btn .icon {
+            display: block;
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+        }
+
+        /* ========== 模态弹窗 ========== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: overlayIn 0.3s ease-out;
+        }
+
+        @keyframes overlayIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .modal-overlay.closing {
+            animation: overlayOut 0.25s ease-in forwards;
+        }
+
+        @keyframes overlayOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .modal-panel {
+            background: linear-gradient(160deg, #1e1b4b 0%, #312e81 40%, #1e1b4b 100%);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            border-radius: 24px;
+            padding: 35px 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 75vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 50px var(--modal-glow);
+            animation: panelIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        @keyframes panelIn {
+            0% { transform: scale(0.85) translateY(30px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .modal-panel.closing {
+            animation: panelOut 0.25s ease-in forwards;
+        }
+
+        @keyframes panelOut {
+            0% { transform: scale(1) translateY(0); opacity: 1; }
+            100% { transform: scale(0.85) translateY(30px); opacity: 0; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #ffd54f;
+            text-shadow: 0 0 15px rgba(255,213,79,0.4);
+        }
+
+        .modal-close {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: inherit;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 80, 80, 0.25);
+            border-color: rgba(255, 100, 100, 0.6);
+            transform: rotate(90deg);
+        }
+
+        .blessing-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .blessing-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            line-height: 1.6;
+            animation: itemIn 0.4s ease-out both;
+            transition: all 0.25s;
+            letter-spacing: 0.03em;
+        }
+
+        .blessing-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.35);
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        @keyframes itemIn {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ========== 粒子光点（按钮周围） ========== */
+        .sparkle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+            animation: sparklePop 1s ease-out forwards;
+        }
+
+        @keyframes sparklePop {
+            0% { opacity: 1; transform: translate(0,0) scale(1); }
+            100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(0); }
+        }
+
+        /* scrollbar */
+        .modal-panel::-webkit-scrollbar {
+            width: 5px;
+        }
+        .modal-panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .modal-panel::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .main-message { font-size: 2.4rem; }
+            .btn-grid {
+                grid-template-columns: repeat(2, 1fr);
+                width: 90vw;
+                gap: 10px;
+            }
+            .blessing-btn { padding: 12px 8px; font-size: 1rem; }
+            .blessing-btn .icon { font-size: 1.4rem; }
+            .container { width: 100%; min-height: auto; }
         }
     </style>
 </head>
 <body>
+    <!-- 星星背景 -->
     <div class="stars" id="stars"></div>
 
-    <div class="container">
-        <div class="main-message">祝你考试顺利</div>
+    <!-- 流星容器 -->
+    <div id="shootingStars"></div>
 
-        <div class="blessing" style="top: 5%; left: 20%; --tx: 30px; --ty: -20px;">📝 下笔如有神</div>
-        <div class="blessing" style="top: 2%; left: 45%; --tx: 0px; --ty: -30px;">💪 逢考必过</div>
-        <div class="blessing" style="top: 5%; right: 18%; --tx: -30px; --ty: -20px;">🏆 金榜题名</div>
-        <div class="blessing" style="top: 18%; right: 3%; --tx: -40px; --ty: 0px;">✨ 超常发挥</div>
-        <div class="blessing" style="top: 40%; right: -2%; --tx: -40px; --ty: -10px;">🎯 考的都会</div>
-        <div class="blessing" style="bottom: 35%; right: 3%; --tx: -35px; --ty: 10px;">🍀 好运爆棚</div>
-        <div class="blessing" style="bottom: 15%; right: 15%; --tx: -25px; --ty: 20px;">🌟 旗开得胜</div>
-        <div class="blessing" style="bottom: 8%; left: 42%; --tx: 0px; --ty: 25px;">💯 门门满分</div>
-        <div class="blessing" style="bottom: 15%; left: 16%; --tx: 25px; --ty: 20px;">🎓 前程似锦</div>
-        <div class="blessing" style="bottom: 35%; left: -2%; --tx: 35px; --ty: 10px;">🔥 势在必得</div>
-        <div class="blessing" style="top: 38%; left: -2%; --tx: 35px; --ty: -10px;">🎉 一鸣惊人</div>
-        <div class="blessing" style="top: 18%; left: 3%; --tx: 30px; --ty: 0px;">💫 心想事成</div>
+    <!-- 浮动光点 -->
+    <div id="floatingOrbs"></div>
+
+    <!-- 旋转六角星装饰 -->
+    <div id="hexStars"></div>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <div class="main-message">祝福</div>
+        <div class="subtitle">· 愿每一份努力都不被辜负 ·</div>
+
+        <div class="btn-grid" id="btnGrid">
+            <button class="blessing-btn" data-category="wealth" style="--glow: rgba(255, 215, 0, 0.5);">
+                <span class="icon">💰</span>财富滚滚
+            </button>
+            <button class="blessing-btn" data-category="love" style="--glow: rgba(255, 105, 180, 0.5);">
+                <span class="icon">💕</span>甜蜜爱情
+            </button>
+            <button class="blessing-btn" data-category="exam" style="--glow: rgba(100, 200, 255, 0.5);">
+                <span class="icon">📚</span>考运亨通
+            </button>
+            <button class="blessing-btn" data-category="career" style="--glow: rgba(255, 160, 60, 0.5);">
+                <span class="icon">🚀</span>事业腾飞
+            </button>
+            <button class="blessing-btn" data-category="health" style="--glow: rgba(80, 220, 120, 0.5);">
+                <span class="icon">🍀</span>健康平安
+            </button>
+            <button class="blessing-btn" data-category="general" style="--glow: rgba(200, 140, 255, 0.5);">
+                <span class="icon">✨</span>万事如意
+            </button>
+        </div>
     </div>
 
+    <!-- 模态弹窗（动态生成） -->
+
     <script>
-        // 生成随机星星
+        // ========== 祝福语数据 ==========
+        const blessingsData = {
+            wealth: {
+                title: '💰 财富滚滚',
+                icon: '💰',
+                glow: 'rgba(255, 215, 0, 0.4)',
+                items: [
+                    '💰 财源广进，日进斗金，钱包永远鼓鼓的！',
+                    '💎 正财偏财一起旺，八方来财挡不住！',
+                    '🏦 存款数字蹭蹭涨，早日实现财富自由！',
+                    '💵 每一分付出都有十倍回报，赚钱像呼吸一样简单！',
+                    '🪙 贵人带财来，机遇变黄金，好运连连发！',
+                    '📈 投资眼光独到，理财收益翻倍，财路越走越宽！',
+                    '💳 花出去的钱以更好的方式回来，越花越有！',
+                    '🎰 好运加持，意外之财惊喜不断！',
+                    '🏡 金玉满堂，家财万贯，福禄双全！',
+                    '💷 左手进财右手聚财，开源节流两不误！',
+                    '🎁 商机自动找上门，合作项目源源不断！',
+                    '🌟 财富能量满满，吸引一切丰盛与富足！',
+                ]
+            },
+            love: {
+                title: '💕 甜蜜爱情',
+                icon: '💕',
+                glow: 'rgba(255, 105, 180, 0.4)',
+                items: [
+                    '💕 愿你得遇良人，从此深情不被辜负！',
+                    '💌 两情相悦，心心相印，白首不相离！',
+                    '🌹 桃花朵朵开，正缘如期而至，一眼万年！',
+                    '💑 执子之手与子偕老，每一天都是热恋！',
+                    '💖 彼此理解包容，争吵不过夜，甜蜜到永远！',
+                    '🕊️ 爱如春风拂面，温柔且坚定，简单又长久！',
+                    '💘 在对的时间遇见对的人，一切刚刚好！',
+                    '🎀 爱情事业双丰收，有人问你粥可温！',
+                    '💞 相互成就彼此，你是对方的锦上添花！',
+                    '🌸 浪漫藏在日常里，每一天都值得纪念！',
+                    '💗 心有灵犀一点通，默契无需多言！',
+                    '🎊 愿你的爱情像陈年老酒，越久越醇香！',
+                ]
+            },
+            exam: {
+                title: '📚 考运亨通',
+                icon: '📚',
+                glow: 'rgba(100, 200, 255, 0.4)',
+                items: [
+                    '📝 下笔如有神，考的全会，蒙的全对！',
+                    '💪 逢考必过，门门高分，轻松拿捏每一科！',
+                    '🏆 金榜题名时，春风得意马蹄疾！',
+                    '🎯 超常发挥，会的做对，不会的猜对！',
+                    '💯 门门满分，成绩单漂亮得像一幅画！',
+                    '🧠 记忆力爆表，知识点过目不忘！',
+                    '🎓 前程似锦，学业有成，名校向你招手！',
+                    '⚡ 思维清晰，解题如有神助，难题迎刃而解！',
+                    '🌟 考场上气场全开，下笔行云流水！',
+                    '🔥 势在必得，实力碾压，稳操胜券！',
+                    '🎉 一鸣惊人，让所有人刮目相看！',
+                    '🍀 好运加持，复习的都考到，漏掉的都不考！',
+                    '✨ 旗开得胜，马到成功，考后笑容灿烂！',
+                    '💫 心态超稳，淡定从容，发挥出最佳水平！',
+                ]
+            },
+            career: {
+                title: '🚀 事业腾飞',
+                icon: '🚀',
+                glow: 'rgba(255, 160, 60, 0.4)',
+                items: [
+                    '🚀 事业蒸蒸日上，升职加薪快人一步！',
+                    '🏢 职场如鱼得水，领导赏识同事喜爱！',
+                    '💼 机遇不断，项目顺利，绩效年年 A+！',
+                    '🎯 目标清晰执行力强，每一步都踩在点上！',
+                    '🌟 才华被看见，努力有回报，成为不可替代的人！',
+                    '📊 业绩长虹，KPI 超额完成，奖金拿到手软！',
+                    '🤝 贵人相助，优质人脉自来，合作共赢！',
+                    '💡 灵感迸发，创意无限，你就是团队的 MVP！',
+                    '🔑 打开事业新局面，走向更广阔的舞台！',
+                    '🎊 跳槽加薪创业成功，每一个选择都开花结果！',
+                    '🏅 专业能力突飞猛进，成为行业佼佼者！',
+                    '☀️ 工作充满成就感，每天醒来都干劲十足！',
+                ]
+            },
+            health: {
+                title: '🍀 健康平安',
+                icon: '🍀',
+                glow: 'rgba(80, 220, 120, 0.4)',
+                items: [
+                    '🍀 身体健康，百病不侵，免疫力 max！',
+                    '💪 精力充沛，活力满满，永远年轻态！',
+                    '🧘 身心平衡，内心宁静，睡眠质量超棒！',
+                    '🌿 吃嘛嘛香，身体倍儿棒，体检报告全绿灯！',
+                    '🏃 运动充满乐趣，身体柔韧又有力量！',
+                    '😊 心情天天晴朗，笑容挂在脸上！',
+                    '🛡️ 平安顺遂，远离意外，每一天都安稳！',
+                    '🌸 气色红润，由内而外散发健康光彩！',
+                    '🧡 家人平安健康，和睦喜乐无忧愁！',
+                    '🎋 像竹子一样坚韧，风吹雨打都不怕！',
+                    '💚 心态年轻，乐观向上，活成自己喜欢的样子！',
+                    '☀️ 早睡早起精神好，生活规律元气足！',
+                ]
+            },
+            general: {
+                title: '✨ 万事如意',
+                icon: '✨',
+                glow: 'rgba(200, 140, 255, 0.4)',
+                items: [
+                    '✨ 所求皆如愿，所行化坦途，所遇皆温柔！',
+                    '🌈 生活明朗万物可爱，每天都值得期待！',
+                    '🎊 好事连连，惊喜不断，幸运常伴左右！',
+                    '🌻 向阳而生，逐光而行，活出最灿烂的自己！',
+                    '🎁 心想事成，美梦成真，所有愿望都实现！',
+                    '🕊️ 岁月静好，现世安稳，幸福细水长流！',
+                    '💫 所有的等待都如期而至，所有的努力都开花结果！',
+                    '🌟 万事胜意，未来可期，前程一片光明！',
+                    '🎈 笑容常在，快乐简单，生活充满小确幸！',
+                    '🧿 霉运走开好运留下，每一天都顺顺利利！',
+                    '🌙 夜晚好梦白天好心情，24 小时被幸福包围！',
+                    '🏮 福气满满，喜气洋洋，红红火火每一天！',
+                ]
+            }
+        };
+
+        // ========== 生成星星背景 ==========
         const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 120; i++) {
             const star = document.createElement('div');
             star.className = 'star';
             const size = Math.random() * 3 + 1;
@@ -146,10 +547,167 @@
             star.style.height = size + 'px';
             star.style.left = Math.random() * 100 + '%';
             star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 3 + 's';
-            star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            star.style.setProperty('--dur', (Math.random() * 2 + 2) + 's');
+            star.style.setProperty('--delay', (Math.random() * 4) + 's');
             starsContainer.appendChild(star);
         }
+
+        // ========== 生成流星 ==========
+        const shootingContainer = document.getElementById('shootingStars');
+        for (let i = 0; i < 4; i++) {
+            const shooting = document.createElement('div');
+            shooting.className = 'shooting-star';
+            shooting.style.left = (Math.random() * 70 + 15) + '%';
+            shooting.style.top = (Math.random() * 30) + '%';
+            shooting.style.setProperty('--sdur', (Math.random() * 4 + 4) + 's');
+            shooting.style.setProperty('--sdelay', (Math.random() * 8 + i * 3) + 's');
+            shootingContainer.appendChild(shooting);
+        }
+
+        // ========== 生成浮动光点 ==========
+        const orbsContainer = document.getElementById('floatingOrbs');
+        const orbColors = [
+            'rgba(255, 183, 77, 0.4)',
+            'rgba(255, 105, 180, 0.35)',
+            'rgba(100, 180, 255, 0.35)',
+            'rgba(120, 220, 160, 0.35)',
+            'rgba(200, 140, 255, 0.35)',
+            'rgba(255, 160, 60, 0.35)',
+        ];
+        for (let i = 0; i < 8; i++) {
+            const orb = document.createElement('div');
+            orb.className = 'floating-orb';
+            const size = Math.random() * 60 + 30;
+            orb.style.width = size + 'px';
+            orb.style.height = size + 'px';
+            orb.style.background = orbColors[i % orbColors.length];
+            orb.style.left = (Math.random() * 80 + 10) + '%';
+            orb.style.top = (Math.random() * 80 + 10) + '%';
+            orb.style.setProperty('--fodur', (Math.random() * 8 + 7) + 's');
+            orb.style.setProperty('--fox', (Math.random() * 60 - 30) + 'px');
+            orb.style.setProperty('--foy', (Math.random() * 60 - 30) + 'px');
+            orb.style.animationDelay = (Math.random() * 5) + 's';
+            orbsContainer.appendChild(orb);
+        }
+
+        // ========== 生成六角星装饰 ==========
+        const hexContainer = document.getElementById('hexStars');
+        function createHexStar(left, top, size, color, duration) {
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', size);
+            svg.setAttribute('height', size);
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.style.position = 'absolute';
+            svg.style.left = left;
+            svg.style.top = top;
+            svg.classList.add('hex-star');
+            svg.style.setProperty('--spdur', duration);
+            svg.innerHTML = `<polygon points="12,2 15,8 21,9 16,14 18,20 12,17 6,20 8,14 3,9 9,8"
+                fill="none" stroke="${color}" stroke-width="1.2" stroke-linejoin="round"/>`;
+            hexContainer.appendChild(svg);
+        }
+        createHexStar('5%', '10%', '28', 'rgba(255,215,0,0.6)', '12s');
+        createHexStar('88%', '15%', '22', 'rgba(255,105,180,0.5)', '15s');
+        createHexStar('92%', '75%', '26', 'rgba(100,200,255,0.5)', '10s');
+        createHexStar('7%', '80%', '20', 'rgba(120,220,160,0.5)', '14s');
+        createHexStar('50%', '92%', '24', 'rgba(200,140,255,0.5)', '11s');
+
+        // ========== 按钮点击 -> 弹窗 ==========
+        function openModal(category) {
+            const data = blessingsData[category];
+            if (!data) return;
+
+            // 移除已有弹窗
+            const existing = document.querySelector('.modal-overlay');
+            if (existing) existing.remove();
+
+            // 创建遮罩
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+
+            // 创建面板
+            const panel = document.createElement('div');
+            panel.className = 'modal-panel';
+            panel.style.setProperty('--modal-glow', data.glow);
+
+            // 头部
+            const header = document.createElement('div');
+            header.className = 'modal-header';
+            header.innerHTML = `
+                <span class="modal-title">${data.icon} ${data.title.replace(/^[^\s]+\s/, '')}</span>
+                <button class="modal-close" title="关闭">✕</button>
+            `;
+            panel.appendChild(header);
+
+            // 祝福列表
+            const list = document.createElement('div');
+            list.className = 'blessing-list';
+            data.items.forEach((text, idx) => {
+                const item = document.createElement('div');
+                item.className = 'blessing-item';
+                item.style.animationDelay = (idx * 0.05) + 's';
+                item.textContent = text;
+                list.appendChild(item);
+            });
+            panel.appendChild(list);
+
+            overlay.appendChild(panel);
+            document.body.appendChild(overlay);
+
+            // 关闭逻辑
+            function closeModal() {
+                overlay.classList.add('closing');
+                panel.classList.add('closing');
+                setTimeout(() => overlay.remove(), 280);
+            }
+
+            overlay.querySelector('.modal-close').addEventListener('click', closeModal);
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeModal();
+            });
+            document.addEventListener('keydown', function escHandler(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    document.removeEventListener('keydown', escHandler);
+                }
+            });
+        }
+
+        // ========== 绑定按钮事件 ==========
+        document.querySelectorAll('.blessing-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.category;
+
+                // 按钮点击涟漪特效
+                const rect = btn.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                for (let i = 0; i < 12; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    const angle = (Math.PI * 2 * i) / 12;
+                    const dist = 30 + Math.random() * 40;
+                    sparkle.style.cssText = `
+                        position: fixed;
+                        left: ${cx}px;
+                        top: ${cy}px;
+                        width: 6px;
+                        height: 6px;
+                        background: ${btn.style.getPropertyValue('--glow') || 'rgba(255,255,255,0.8)'};
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 200;
+                        --sx: ${Math.cos(angle) * dist}px;
+                        --sy: ${Math.sin(angle) * dist}px;
+                    `;
+                    document.body.appendChild(sparkle);
+                    sparkle.addEventListener('animationend', () => sparkle.remove());
+                }
+
+                // 稍后打开弹窗
+                setTimeout(() => openModal(category), 100);
+            });
+        });
     </script>
 </body>
 </html>
